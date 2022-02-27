@@ -42,13 +42,13 @@ configurationOverrides:
   "status.storage.replication.factor": "1"
   "security.protocol": "SASL_SSL"
   "sasl.mechanism": "PLAIN"
-  "sasl.jaas.config" : 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ftdhub.servicebus.windows.net/;SharedAccessKeyName=poc-kafka-connect;SharedAccessKey=f8P5LT44PSV1CFl1B57DIFSnObBODYcfe9LqB8aQJEE=;EntityPath=poc-kafka-conect-hub";'
+  "sasl.jaas.config" : 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'
   "producer.security.protocol" : "SASL_SSL"
   "producer.sasl.mechanism": "PLAIN"
-  "producer.sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ftdhub.servicebus.windows.net/;SharedAccessKeyName=poc-kafka-connect;SharedAccessKey=f8P5LT44PSV1CFl1B57DIFSnObBODYcfe9LqB8aQJEE=;EntityPath=poc-kafka-conect-hub";'
+  "producer.sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'
   "consumer.security.protocol": "SASL_SSL"
   "consumer.sasl.mechanism": "PLAIN"
-  "consumer.sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ftdhub.servicebus.windows.net/;SharedAccessKeyName=poc-kafka-connect;SharedAccessKey=f8P5LT44PSV1CFl1B57DIFSnObBODYcfe9LqB8aQJEE=;EntityPath=poc-kafka-conect-hub";'
+  "consumer.sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'
 
 
 ## Kafka Connect JVM Heap Option
