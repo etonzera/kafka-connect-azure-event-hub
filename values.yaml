@@ -23,7 +23,7 @@ servicePort: 8083
 ## Kafka Connect properties
 ## ref: https://docs.confluent.io/current/connect/userguide.html#configuring-workers
 configurationOverrides:
-  "bootstrap.servers": "ftdhub.servicebus.windows.net:9093"
+  "bootstrap.servers": "yourserver.servicebus.windows.net:9093"
   "rest.port": "8083"
   "plugin.path": "/usr/share/java,/usr/share/confluent-hub-components"
   "group.id": "connect-cluster-group"
