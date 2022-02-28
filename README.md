@@ -18,7 +18,7 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=yourPasswdRoot -e MYSQL_DATABA
 ```
 ## Connect to database test and execute the script below:
 ```sh
--- test.usuario definition
+-- test.user definition
 
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
