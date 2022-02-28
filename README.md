@@ -79,7 +79,7 @@ export KAFKA_INSTALL_HOME=/home/path/to/confluent-7.0.0 #path of your kafka conn
 ```sh 
 $KAFKA_INSTALL_HOME/bin/kafka-console-consumer --from-beginning --topic $EVENT_HUB_TOPIC_NAME --bootstrap-server $EVENT_HUB_NAMESPACE.servicebus.windows.net:9093 --consumer.config client_common.properties
 ```
-## Finally insert a record in the user table and watch the magic happen.
+## Finally, insert a record in the user table and watch the magic happen
 ```sh 
 insert into user (id, name, description) values (1, 'everton.barros', 'Genesis company owner!')
 ```
