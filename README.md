@@ -2,7 +2,6 @@
 How to integrate data near real time with kafka-connect mysql and azure event hub
 
 # Pre Requirements
-
 - [Docker](https://www.docker.com/ "Docker");
 - [Miinikube](https://minikube.sigs.k8s.io/docs/start/ "Miinikube");
 - [Helm](https://helm.sh/ "Helm").
@@ -18,7 +17,7 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=yourPasswdRoot -e MYSQL_DATABA
 ```
 ## Connect to database test and execute the script below:
 ```sh
--- test.user definition
+-- test.usuario definition
 
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -34,7 +33,7 @@ CREATE TABLE `user` (
 cd kafka-connect-azure-event-hub/
 docker build -t kafka-connect-sample/cp-kafka-connect:7.0.1-jdbc .
 ```
-## Open the values.yaml file and change the properties below according to your azure event hub namespace:
+## Open the *values.yaml* file and change the properties below according to your azure event hub namespace:
 | Key | Value |
 | ------ | ------ |
 | bootstrap.servers | change the value according to your event-hub namespaces information ex: yourserver.servicebus.windows.net:9093 |
@@ -53,7 +52,7 @@ helm uninstall my-kafka-connect
 ```sh
 kubectl port-forward svc/my-kafka-connect-cp-kafka-connect 8083 #Don't close the command, open a new tab from the terminal to continue with the tutorial
 ```
-## Open the mysql-source.json file and change the properties below according to your database infos:
+## Open the *mysql-source.json* file and change the properties below according to your database infos:
 | Key | Value |
 | ------ | ------ |
 | connection.url | ex: jdbc: mysql://inputHereYourIPDatabase:3306/inputHereYourNameDatabase |
@@ -66,7 +65,7 @@ kubectl port-forward svc/my-kafka-connect-cp-kafka-connect 8083 #Don't close the
 curl -X POST -H "Content-Type: application/json" --data @./mysql-source.json http://localhost:8083/connectors
 ```
 ## Consuming offsets from your topic
-- Open the jaas.conf file and change the property according to your event-hub information ex:
+- Open the* jaas.conf * file and change the property according to your event-hub information ex:
 `password="Endpoint=sb://InputHereYourEndpointAzure";`
 
 - Export the variable environments 
@@ -80,4 +79,7 @@ export KAFKA_INSTALL_HOME=/home/path/to/confluent-7.0.0 #path of your kafka conn
 ```sh 
 $KAFKA_INSTALL_HOME/bin/kafka-console-consumer --from-beginning --topic $EVENT_HUB_TOPIC_NAME --bootstrap-server $EVENT_HUB_NAMESPACE.servicebus.windows.net:9093 --consumer.config client_common.properties
 ```
-
+## Finally insert a record in the user table and watch the magic happen.
+```sh 
+insert into user (id, name, description) values (1, 'everton.barros', 'Genesis company owner!')
+```
