@@ -1,7 +1,7 @@
 # kafka-connect-azure-event-hub
 How to integrate data near real time with kafka-connect, mysql and azure event hub
 
-# Pre Requirements
+# Prerequisites
 - [Docker](https://www.docker.com/ "Docker");
 - [Miinikube](https://minikube.sigs.k8s.io/docs/start/ "Miinikube");
 - [Helm](https://helm.sh/ "Helm").
