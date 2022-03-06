@@ -33,6 +33,10 @@ CREATE TABLE `user` (
 cd kafka-connect-azure-event-hub/
 docker build -t kafka-connect-sample/cp-kafka-connect:7.0.1-jdbc .
 ```
+## Sync your local docker repository with minikube
+```sh
+eval $(minikube docker-env)
+```
 ## Open the *values.yaml* file and change the properties below according to your azure event hub namespace:
 | Key | Value |
 | ------ | ------ |
