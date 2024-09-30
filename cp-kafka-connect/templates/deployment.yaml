@@ -40,6 +40,16 @@ spec:
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: AWS_ACCESS_KEY_ID          
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: AWS_SECRET_ACCESS_KEY 
             - name: CONNECT_REST_ADVERTISED_HOST_NAME
               valueFrom:
                 fieldRef:
