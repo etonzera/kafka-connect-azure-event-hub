@@ -6,8 +6,8 @@ replicaCount: 1
 
 ## Image Info
 ## ref: https://hub.docker.com/r/confluentinc/cp-kafka/
-image: kafka-connect-sample/cp-kafka-connect
-imageTag: 7.0.1-jdbc
+image: kafka-connect-csv/cp-kafka-connect
+imageTag: 7.7.0-csv
 
 ## Specify a imagePullPolicy
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -23,7 +23,7 @@ servicePort: 8083
 ## Kafka Connect properties
 ## ref: https://docs.confluent.io/current/connect/userguide.html#configuring-workers
 configurationOverrides:
-  "bootstrap.servers": "yourserver.servicebus.windows.net:9093"
+  "bootstrap.servers": "1yourIPBrokerKafka:9092"
   "rest.port": "8083"
   "plugin.path": "/usr/share/java,/usr/share/confluent-hub-components"
   "group.id": "connect-cluster-group"
@@ -31,24 +31,22 @@ configurationOverrides:
   "offset.storage.topic": "connect-cluster-offsets"
   "status.storage.topic": "connect-cluster-status"
   "offset.flush.interval.ms": "10000"
-  "key.converter": "org.apache.kafka.connect.json.JsonConverter"
-  "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+  "key.converter": "io.confluent.connect.avro.AvroConverter"
+  "value.converter": "io.confluent.connect.avro.AvroConverter"
+  "key.converter.schema.registry.url": "http://yourIPSchemaRegistry:8081"
+  "value.converter.schema.registry.url": "http://yourIPSchemaRegistry:8081"
   "key.converter.schemas.enable": "false"
   "value.converter.schemas.enable": "false"
+  "rest.advertised.host.name": 192.168.0.49"
   "internal.key.converter": "org.apache.kafka.connect.json.JsonConverter"
   "internal.value.converter": "org.apache.kafka.connect.json.JsonConverter"
   "config.storage.replication.factor": "1"
   "offset.storage.replication.factor": "1"
   "status.storage.replication.factor": "1"
   "security.protocol": "SASL_SSL"
-  "sasl.mechanism": "PLAIN"
-  "sasl.jaas.config" : 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'
-  "producer.security.protocol" : "SASL_SSL"
-  "producer.sasl.mechanism": "PLAIN"
-  "producer.sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'
-  "consumer.security.protocol": "SASL_SSL"
-  "consumer.sasl.mechanism": "PLAIN"
-  "consumer.sasl.jaas.config": 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'
+  "sasl.mechanism": "AWS_MSK_IAM"
+  "sasl.jaas.config" : 'software.amazon.msk.auth.iam.IAMLoginModule required awsRoleArn="arn:aws:iam::$ACCOUNTAWSID:role/$ROLE_NAME" awsRoleSessionName="producer" awsStsRegion="eu-west-1" awsMaxBackOffTimeMs="500" awsDebugCreds=true;'
+  "sasl.client.callback.handler.class": "software.amazon.msk.auth.iam.IAMClientCallbackHandler"
 
 
 ## Kafka Connect JVM Heap Option
