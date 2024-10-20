@@ -13,7 +13,7 @@ git clone https://github.com/etonzera/kafka-connect-azure-event-hub.git
 ## Preparing kafka connect image in your local repository
 ```sh
 cd kafka-connect-azure-event-hub/
-docker build -t kafka-connect-sample/cp-kafka-connect:7.7.1 .
+docker build -t kafka-connect-sample/cp-kafka-connect:7.7.0-csv .
 ```
 ## Sync your local docker repository with minikube
 ```sh
