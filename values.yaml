@@ -23,7 +23,7 @@ servicePort: 8083
 ## Kafka Connect properties
 ## ref: https://docs.confluent.io/current/connect/userguide.html#configuring-workers
 configurationOverrides:
-  "bootstrap.servers": "192.168.0.49:9092"
+  "bootstrap.servers": "1yourIPBrokerKafka:9092"
   "rest.port": "8083"
   "plugin.path": "/usr/share/java,/usr/share/confluent-hub-components"
   "group.id": "connect-cluster-group"
@@ -33,8 +33,8 @@ configurationOverrides:
   "offset.flush.interval.ms": "10000"
   "key.converter": "io.confluent.connect.avro.AvroConverter"
   "value.converter": "io.confluent.connect.avro.AvroConverter"
-  "key.converter.schema.registry.url": "http://192.168.0.49:8081"
-  "value.converter.schema.registry.url": "http://192.168.0.49:8081"
+  "key.converter.schema.registry.url": "http://yourIPSchemaRegistry:8081"
+  "value.converter.schema.registry.url": "http://yourIPSchemaRegistry:8081"
   "key.converter.schemas.enable": "false"
   "value.converter.schemas.enable": "false"
   "rest.advertised.host.name": 192.168.0.49"
@@ -45,7 +45,7 @@ configurationOverrides:
   "status.storage.replication.factor": "1"
   "security.protocol": "SASL_SSL"
   "sasl.mechanism": "AWS_MSK_IAM"
-  "sasl.jaas.config" : 'software.amazon.msk.auth.iam.IAMLoginModule required awsRoleArn="arn:aws:iam::927358566998:role/sds-pre-ap-gluon_topics-role" awsRoleSessionName="producer" awsStsRegion="eu-west-1" awsMaxBackOffTimeMs="500" awsDebugCreds=true;'
+  "sasl.jaas.config" : 'software.amazon.msk.auth.iam.IAMLoginModule required awsRoleArn="arn:aws:iam::$ACCOUNTAWSID:role/$ROLE_NAME" awsRoleSessionName="producer" awsStsRegion="eu-west-1" awsMaxBackOffTimeMs="500" awsDebugCreds=true;'
   "sasl.client.callback.handler.class": "software.amazon.msk.auth.iam.IAMClientCallbackHandler"
 
 
