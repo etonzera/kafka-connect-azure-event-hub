@@ -10,28 +10,10 @@ How to integrate data near real time with kafka-connect, mysql and azure event h
 ```sh
 git clone https://github.com/etonzera/kafka-connect-azure-event-hub.git
 ```
-
-##  DATABASE
-```sh
-docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=yourPasswdRoot -e MYSQL_DATABASE=test -e MYSQL_USER=yourUserMySQL -e MYSQL_PASSWORD=yourPasswordNewUser mysql:latest
-```
-## Connect to database test and execute the script below:
-```sh
--- test.user definition
-
-CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `description` varchar(150) DEFAULT NULL,
-  `stamp_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-```
 ## Preparing kafka connect image in your local repository
 ```sh
 cd kafka-connect-azure-event-hub/
-docker build -t kafka-connect-sample/cp-kafka-connect:7.0.1-jdbc .
+docker build -t kafka-connect-sample/cp-kafka-connect:7.7.1 .
 ```
 ## Sync your local docker repository with minikube
 ```sh
