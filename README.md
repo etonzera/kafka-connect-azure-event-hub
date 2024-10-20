@@ -22,10 +22,10 @@ eval $(minikube docker-env)
 ## Open the *values.yaml* file and change the properties below according to your azure event hub namespace:
 | Key | Value |
 | ------ | ------ |
-| bootstrap.servers | change the value according to your event-hub namespaces information ex: yourserver.servicebus.windows.net:9093 |
-| sasl.jaas.config | change the value according to your event-hub namespaces information ex: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'|
-| producer.sasl.jaas.config | change the value according to your event-hub namespaces information ex: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'|
-| consumer.sasl.jaas.config | change the value according to your event-hub namespaces information ex: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAzure";'|
+| bootstrap.servers | change the value according to your AWS namespaces information ex: broker.services.:9092 |
+| sasl.jaas.config | change the value according to your event-hub namespaces information ex: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAWS";'|
+| producer.sasl.jaas.config | change the value according to your event-hub namespaces information ex: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAWS";'|
+| consumer.sasl.jaas.config | change the value according to your event-hub namespaces information ex: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=inputHereYourEndpointSecretAWS";'|
 
 ## Installing kafka connect on minikube with helm chart
 ```sh
@@ -48,24 +48,22 @@ kubectl port-forward svc/my-kafka-connect-cp-kafka-connect 8083 #Don't close the
 
 ## Creating a connector by rest API
 ```sh
-curl -X POST -H "Content-Type: application/json" --data @./mysql-source.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data @./csv-connector.json http://localhost:8083/connectors
 ```
 ## Consuming offsets from your topic
 - Open the* jaas.conf * file and change the property according to your event-hub information ex:
-`password="Endpoint=sb://InputHereYourEndpointAzure";`
+`password="Endpoint=sb://inputHereYourEndpointSecretAWS";`
 
 - Export the variable environments 
 ```sh
-export EVENT_HUB_NAMESPACE=yourEventHubNamespace
-export EVENT_HUB_TOPIC_NAME=yourTopicName
+export AWS_NAMESPACE=yourEventHubNamespace
+export AWS_TOPIC_NAME=yourTopicName
 export KAFKA_OPTS="-Djava.security.auth.login.config=jaas.conf"
 export KAFKA_INSTALL_HOME=/home/path/to/confluent-7.0.0 #path of your kafka connect binary
 ```
 - Consuming topic offsets
 ```sh 
-$KAFKA_INSTALL_HOME/bin/kafka-console-consumer --from-beginning --topic $EVENT_HUB_TOPIC_NAME --bootstrap-server $EVENT_HUB_NAMESPACE.servicebus.windows.net:9093 --consumer.config client_common.properties
+$KAFKA_INSTALL_HOME/bin/kafka-console-consumer --from-beginning --topic $AWS_HUB_TOPIC_NAME --bootstrap-server $AWS_HUB_NAMESPACE.broker:9092 --consumer.config client_common.properties
 ```
-## Finally, insert a record in the user table and watch the magic happen
-```sh 
-insert into user (id, name, description) values (1, 'everton.barros', 'Genesis company owner!')
-```
+
+
